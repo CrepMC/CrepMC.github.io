@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>CrepMC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #color-changing-text {
+            font-size: 30px;
+            background-image: linear-gradient(to right, red, orange, yellow, green, rgb(96, 96, 255), violet);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 0%;
+            }
+        }
+</style>
+<style>
+  
+  body {
+    background-color: #181818; /* Set the background color to #181818 */
+    background-blend-mode: darken; /* Apply darken blend mode to the background */
+  }
+</style>
+<style>
+    .name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        box-sizing: border-box;
+        text-decoration: none;
+        position: absolute;
+        bottom: 30%;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+<style>
+    .pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 8px solid rgb(116, 127, 141);
+    overflow: hidden;
+    object-fit: cover;
+    }
+</style>
+<style>
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: sticky;
+    height: 80vh;
+  }
+</style>
+
+</head>
+<body shown>
+<div class="profile-card" style="display: block;">
+<div class="card-header">
+    <div class="pic">
+        <img src="https://cdn.discordapp.com/avatars/969801848036917248/5ca6f43a96e5ab3a4b4e18e11a9f097f.webp?size=128" alt="avatar" id="avatar-img">
+      </div>
+    <div class="name">
+    <a href="https://discord.com/users/969801848036917248" id="color-changing-text" target="_blank" rel="noopener noreferrer">
+
+      CrepVN#9425
+  </a>
+</div>
+</div>
+</div>
+</body>
+</html>
