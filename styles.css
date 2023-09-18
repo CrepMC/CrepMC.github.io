@@ -24,7 +24,7 @@ body {
 
 .profile-card {
     display: flex;
-    align-items: center;
+    align-items: right;
     justify-content: space-between;
     background-color: rgb(139 126 102);
     color: white;
