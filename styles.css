@@ -61,7 +61,8 @@ body {
     border: 8px solid rgb(116, 127, 141);
     overflow: hidden;
     object-fit: cover;
-    float: right;
+    align-items: left;
+    justify-content: left;
 }
 
 .name {
@@ -73,16 +74,9 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     box-sizing: border-box;
     text-decoration: none;
-    float: left;
     bottom: 30%;
     width: 100%;
     text-align: center;
-}
-
-.container::after {
-    content: "";
-    display: table;
-    clear: both;
 }
 
 .card-header {
@@ -90,7 +84,6 @@ body {
     align-items: right;
     justify-content: right;
     box-sizing: border-box;
-    position: relative;
 }
 
 * {
