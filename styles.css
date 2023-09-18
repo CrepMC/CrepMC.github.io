@@ -13,7 +13,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #333;
+    background-color: linear-gradient(to rgb(139 0 0), rgb(255 0 0));
     color: white;
     padding: 8px 16px;
     position: fixed;
