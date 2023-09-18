@@ -63,10 +63,16 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     box-sizing: border-box;
     text-decoration: none;
-  
+   float: right;
     bottom: 30%;
     width: 100%;
     text-align: center;
+}
+
+.container::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .pic img {
