@@ -54,6 +54,16 @@ body {
     }
 }
 
+.pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 8px solid rgb(116, 127, 141);
+    overflow: hidden;
+    object-fit: cover;
+    float: right;
+}
+
 .name {
     display: flex;
     align-items: right;
@@ -73,15 +83,6 @@ body {
     content: "";
     display: table;
     clear: both;
-}
-
-.pic img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 8px solid rgb(116, 127, 141);
-    overflow: hidden;
-    object-fit: cover;
 }
 
 .card-header {
