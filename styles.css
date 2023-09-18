@@ -5,6 +5,27 @@ body {
   user-select: none;
 }
 
+body {
+    font-family: Arial, sans-serif;
+}
+
+.bar {
+    display: flex;
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.bar a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.bar a:hover {
+    background-color: #555;
+}
+
 #color-changing-text {
     font-size: 30px;
     background-image: linear-gradient(to right, red, orange, yellow, green, rgb(96, 96, 255), violet);
