@@ -22,7 +22,7 @@ body {
   }
 }
 
-.picture main {
+.picture img {
     justify-content: center;
     align-item: center;
     object-fit: cover;
