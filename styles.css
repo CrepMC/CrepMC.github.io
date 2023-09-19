@@ -26,6 +26,8 @@ body {
     justify-content: center;
     align-item: center;
     object-fit: cover;
+    height: 100px;
+    width: 100px
 }
 
 .profile-card {
