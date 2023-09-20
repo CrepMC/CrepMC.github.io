@@ -25,9 +25,8 @@ body {
 .picture img {
     justify-content: center;
     align-items: center;
-    object-fit: cover;
     height: 600px;
-    width: 600px
+    width: 600px;
 }
 
 .profile-card {
