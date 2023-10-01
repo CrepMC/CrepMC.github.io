@@ -13,7 +13,7 @@ setTimeout(function() {
   element2.style.display = 'block';
 }, 3500);
 setTimeout(function() {
-  cost wrapshow = document.getElementById('wrapshow')
+  const wrapshow = document.getElementById('wrapshow')
   
   wrapshow.style.display = 'block';
 }, 3500);
