@@ -36,32 +36,13 @@ body {
   animation: rotate 2s linear infinite;
 }
 
-.loading-icon2 {
-  position: sticky;
-  position: sticky;
-  top: 25%;
-  left: 42%;
-  transform: translate(-50%, -50%);
-  height: 200px;
-  width: 200px;
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 50%;
-  display: flex;
-  animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(
-      0deg
-    );
-  }
-  100% {
-    transform: rotate(
-      360deg
-    );
-  }
+.loading-icon:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .loading-bar {
