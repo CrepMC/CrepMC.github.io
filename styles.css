@@ -142,6 +142,7 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
     height: 592px;
     width: 948px;
 }
