@@ -8,7 +8,12 @@ setTimeout(function() {
   document.getElementById("hideLoadingbar2").style.display = "none"
 }, 2700);
 setTimeout(function() {
-    const element2 = document.getElementById('element2');
+  const element2 = document.getElementById('element2');
     
-    element2.style.display = 'block';
+  element2.style.display = 'block';
+}, 3500);
+setTimeout(function() {
+  cost wrapshow = document.getElementById('wrapshow')
+  
+  wrapshow.style.display = 'block';
 }, 3500);
