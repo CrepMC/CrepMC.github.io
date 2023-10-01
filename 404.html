@@ -23,8 +23,9 @@
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
 
+}
+        
 h1 {
     font-size: 100px;
     margin: 0;
@@ -46,10 +47,18 @@ a {
     color: #fff;
     text-decoration: none;
     transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
 a:hover {
     background-color: #ff6b81;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.a:active {
+    transform: scale(0.95);
 }
     </style>
     <meta charset="UTF-8">
@@ -58,10 +67,10 @@ a:hover {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="error-container" id="homeButton">
-        <h1>404</h1>
+    <div class="error-container">
+        <h1>4⃫0⃫4⃫</h1>
         <p>Sorry, the page you're looking for cannot be found.</p>
-        <a href="/">Go Back to Home</a>
+        <a href="/" id="homeButton">Go Back to Home</a>
     </div>
 </body>
 </html>
