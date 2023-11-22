@@ -7,6 +7,8 @@ setTimeout(function() {
 setTimeout(function() {
   document.getElementById("hideLoadingbar2").style.display = "none"
 }, 2700);
+  document.getElementById("hideLoading").style.display = "none"
+},3500);
 setTimeout(function() {
   const element2 = document.getElementById('element2');
     
