@@ -22,13 +22,13 @@ body {
   }
 }
 
+.loading {
+  display: flex
+}
+
 .loading-icon {
+  display: block;
   position: sticky;
-  top: 25%;
-  left: 42%;
-  transform: translate(-50%, -50%);
-  height: 200px;
-  width: 200px;
   max-width: 100%;
   max-height: 100%;
   border-radius: 50%;
@@ -50,12 +50,7 @@ body {
 }
 
 .loading-bar {
-  position: sticky;
-  top: 60%;
-  left: 49.2%;
-  transform: translate(-50%, -50%);
-  height: 20px;
-  width: 200px;
+  
   border-radius: 10%;
   max-width: 100%;
   max-height: 100%;
@@ -63,7 +58,7 @@ body {
 }
 
 .outside-loading-bar {
-  position: sticky;
+  position: relative;
   top: 60%;
   left: 49.2%;
   transform: translate(-50%, -50%);
