@@ -27,7 +27,7 @@ body {
 }
 
 .loading-icon {
-  display: block;
+  display: inline;
   position: sticky;
   max-width: 100%;
   max-height: 100%;
