@@ -1,7 +1,9 @@
 setTimeout(function () {
   hideElement("hideLoadingbar");
-  hideElement("hideLoadingicon");
   hideElement("hideLoadingbar2");
+}, 2700);
+setTimeout(function () {
+  hideElement("hideLoadingicon");
   hideElement("hideLoading");
   showElement("element2");
   showElement("wrapshow");

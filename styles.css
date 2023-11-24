@@ -75,9 +75,9 @@ body {
   left: -502.5%;
   transform: translate(-50%, -50%);
   height: 20px;
-  width: 2000px;
+  width: 20000000000000000000000000000px;
   border: 1px;
-  animation: move-bar 50s linear;
+  animation: move-bar infinite linear;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 }
 
