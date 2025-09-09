@@ -1,45 +1,65 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    position: sticky;
-    align-items: center;
-    text-align: right;
-    justify-content: center;
-    display: flex;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    background-color: #ff4757;
-    color: #fff;
-    text-decoration: none;
-    transition: background-color 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+  display: block;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #ff4757;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  transition: box-shadow 0.3s ease;
 }
 
 button:hover {
-    background-color: #ff6b81;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ff6b81;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 textarea {
-    width: 500px;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 20px;
-    resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: vertical;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.publish-form label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 #publishedContent {
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+  margin-top: 20px;
+  padding-top: 20px;
+  line-height: 1.6;
 }

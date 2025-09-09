@@ -1,197 +1,85 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <title>CrepMC</title>
-    <link rel="icon" href="Favicon.jpg" type="image/jpeg">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-</head>
+    <link rel="icon" href="Favicon.jpg" type="image/jpeg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <div id="hideLoading" class="Loading">
-        <div id="hideLoadingicon" class="loading-icon">
-            <img src="Loading.jpg" alt="load">
-        </div>
-        <div class="loading-bar" id="hideLoadingbar"></div>
-        <div class="outside-loading-bar" id="hideLoadingbar2">
-            <div class="inside-loading-bar"></div>
-        </div>
+      <video width="100%" autoplay muted class="Loading-video">
+        <source
+          src="./Public/Loading.mp4"
+          type="video/mp4"
+          class="Loading-video"
+        />
+        Trình duyệt của bạn không hỗ trợ thẻ video.
+      </video>
     </div>
-    <div style="display: none;" id="element2">
-        <div class="wrap" id="wrapshow">
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
-            <div class="c"></div>
+    <div class="fade-out-screen" id="fadeOutScreen"></div>
+    <div class="falling-leaves" id="fallingLeaves"></div>
+    <div class="profile-card-container card-entrance">
+      <div class="glitch">
+        <div class="glitch-box 1"></div>
+        <div class="glitch-box 2"></div>
+        <div class="glitch-box 3"></div>
+        <div class="glitch-box 4"></div>
+        <div class="glitch-box 5"></div>
+      </div>
+      <div class="profile-header">
+        <div class="avatar-ring">
+          <img
+            alt="avatar"
+            class="avatar"
+            src="https://cdn.discordapp.com/avatars/969801848036917248/5ca6f43a96e5ab3a4b4e18e11a9f097f?size=1024"
+          />
+          <span class="status-ring idle"></span>
         </div>
-        <div class="imageContainer">
-            <div class="picture">
-                <img src="imgpage.png" alt="side" target="_blank" rel="noopener noreferrer">
-            </div>
+        <div class="user-info">
+          <div class="username">CrepVN</div>
+          <div class="sub-username">"crepvn2009"</div>
+          <div class="desc">zzzzz</div>
         </div>
-        <div class="profile-card" style="display: block;">
-            <div class="card-header">
-                <div class="twitter">
-                    <a href="https://twitter.com/Crepvn2009" target="_blank">
-                        <img src="https://cdn.tgdd.vn/2020/04/GameApp/twitter-logo-200x200.png" alt="twitter" />
-                    </a>
-                </div>
-                <div class="name">
-                    <a href="https://discord.com/users/969801848036917248" id="color-changing-text">
-                        CrepVN#9425
-                    </a>
-                </div>
-                <div class="pic">
-                    <img src="https://cdn.discordapp.com/avatars/969801848036917248/5ca6f43a96e5ab3a4b4e18e11a9f097f.webp?size=128"
-                        alt="avatar" id="avatar-img">
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="sm">
+        <a
+          href="https://discord.com/users/969801848036917248"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="fa-brands fa-discord"
+          aria-label="Discord"
+        ></a>
+        <a
+          href="https://github.com/CrepMC"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="fa-brands fa-github"
+          aria-label="GitHub"
+        ></a>
+        <a
+          href="https://www.youtube.com/@crepmc_vn_4194"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="fa-brands fa-youtube"
+          aria-label="YouTube"
+        ></a>
+        <a
+          href="https://buymeacoffee.com/crepmc"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="fa-solid fa-mug-saucer"
+          aria-label="Buy Me A Coffee"
+        ></a>
+      </div>
     </div>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -1,19 +1,27 @@
-document.getElementById('publishButton').addEventListener('click', function() {
-    var content = document.getElementById('inputText').value;
-    content = content.replace(/\n/g, '<br>'); // Chuyển đổi xuống dòng thành <br>
-    document.getElementById('publishedContent').innerHTML = content;
-});
-document.getElementById('uploadButton').addEventListener('click', function () {
-    var fileInput = document.getElementById('fileInput');
-    var file = fileInput.files[0];
+document.getElementById('publishButton').addEventListener('click', function () {
+  const textContent = document.getElementById('inputText').value;
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
 
-    if (file) {
-        var videoElement = document.getElementById('publishedVideo');
-        var objectUrl = URL.createObjectURL(file);
+  const publishedContentDiv = document.getElementById('publishedContent');
+  const videoElement = document.getElementById('publishedVideo');
 
-        videoElement.src = objectUrl;
-        videoElement.style.display = "block"; // Hiển thị thẻ video sau khi tải lên
-    } else {
-        alert("Vui lòng chọn một video trước khi xuất bản.");
-    }
+  // Check if there is any content to publish
+  if (!textContent.trim() && !file) {
+    alert('Vui lòng nhập văn bản hoặc chọn một video để xuất bản.');
+    return;
+  }
+
+  // Publish text content
+  if (textContent.trim()) {
+    const formattedContent = textContent.replace(/\n/g, '<br>'); // Convert newlines to <br>
+    publishedContentDiv.innerHTML = formattedContent;
+  }
+
+  // Publish video content
+  if (file) {
+    const objectUrl = URL.createObjectURL(file);
+    videoElement.src = objectUrl;
+    videoElement.style.display = 'block'; // Show the video tag after upload
+  }
 });

@@ -1,24 +1,37 @@
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="/blog/Favicon.jpg" type="image/jpeg">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="../Favicon.jpg" type="image/jpeg" />
     <title>Blog</title>
-</head>
+  </head>
 
-<body>
-    <div id="publishedContent"></div>    
-<textarea id="inputText" placeholder="Đánh văn bản của bạn vào đây"     
-    name="content"
-    rows="10"
-    cols="10"
-    required></textarea>
-    <button id="publishButton">Xuất bản</button>
-<input type="file" id="fileInput" accept="video/*">
-<button id="uploadButton">Xuất bản</button>
-<video id="publishedVideo" controls width="50%" style="display: none;"></video>
-<script src="script.js"></script>
-</body>
-
+  <body>
+    <main>
+      <h1>My Blog</h1>
+      <div class="publish-form">
+        <label for="inputText">Viết gì đó:</label>
+        <textarea
+          id="inputText"
+          placeholder="Đánh văn bản của bạn vào đây"
+          name="content"
+          rows="10"
+          cols="50"
+          required
+        ></textarea>
+        <label for="fileInput">Tải video lên (tùy chọn):</label>
+        <input type="file" id="fileInput" accept="video/*" />
+        <button id="publishButton">Xuất bản</button>
+      </div>
+      <hr />
+      <div id="publishedContent"></div>
+      <video
+        id="publishedVideo"
+        controls
+        width="50%"
+        style="display: none"
+      ></video>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
