@@ -19,6 +19,26 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('fallingLeaves').style.display = 'block';
     startLeafAnimation(); // Start the animation AFTER the container is visible
   }, 1500); // Wait 1.5 seconds before starting the transition
+
+  // Dropdown menu logic
+  const dropdownBtn = document.getElementById('dropdown-btn');
+  const dropdownContent = document.getElementById('dropdown-content');
+
+  if (dropdownBtn && dropdownContent) {
+    dropdownBtn.addEventListener('click', function (event) {
+      event.stopPropagation();
+      dropdownContent.classList.toggle('show');
+    });
+
+    // Close the dropdown if the user clicks outside of it
+    window.addEventListener('click', function (event) {
+      if (!dropdownBtn.contains(event.target)) {
+        if (dropdownContent.classList.contains('show')) {
+          dropdownContent.classList.remove('show');
+        }
+      }
+    });
+  }
 });
 var LeafScene = function (el) {
   this.viewport = el;

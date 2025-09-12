@@ -10,7 +10,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/profile.css" />
+    <link rel="stylesheet" href="css/components.css" />
   </head>
 
   <body>
@@ -26,60 +29,128 @@
     </div>
     <div class="fade-out-screen" id="fadeOutScreen"></div>
     <div class="falling-leaves" id="fallingLeaves"></div>
-    <div class="profile-card-container card-entrance">
-      <div class="glitch">
+    <main class="content">
+      <div class="hover-container hover-1">
+        <div class="profile-bar-trigger">
+          <span>Contact</span>
+          <i class="fa-solid fa-chevron-down trigger-arrow"></i>
+        </div>
+        <div class="profile-card-container">
+          <form class="contact-form">
+            <h3>Get in touch</h3>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+      <div class="hover-container hover-2">
+        <div class="profile-bar-trigger">
+          <span>About me</span>
+          <i class="fa-solid fa-chevron-down trigger-arrow"></i>
+        </div>
+        <div class="profile-card-container">
+          <div class="about-me-section">
+            <h3>About Me</h3>
+            <p>
+              I'm a passionate programmer and creator, always eager to learn new
+              technologies and build cool things. When I'm not coding, you can
+              find me exploring new games or creating content.
+            </p>
+            <h4>My Skills</h4>
+            <div class="skills-list">
+              <span class="skill-item">
+                <i class="fa-brands fa-js-square"></i>
+                JavaScript
+              </span>
+              <span class="skill-item">
+                <i class="fa-brands fa-html5"></i>
+                HTML5
+              </span>
+              <span class="skill-item">
+                <i class="fa-brands fa-css3-alt"></i>
+                CSS3
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hover-container hover-3">
+        <div class="profile-bar-trigger">
+          <span>Profile</span>
+          <i class="fa-solid fa-chevron-down trigger-arrow"></i>
+        </div>
+        <div class="profile-card-container card-entrance">
+          <!-- <div class="glitch">
         <div class="glitch-box 1"></div>
         <div class="glitch-box 2"></div>
         <div class="glitch-box 3"></div>
         <div class="glitch-box 4"></div>
         <div class="glitch-box 5"></div>
-      </div>
-      <div class="profile-header">
-        <div class="avatar-ring">
-          <img
-            alt="avatar"
-            class="avatar"
-            src="https://cdn.discordapp.com/avatars/969801848036917248/5ca6f43a96e5ab3a4b4e18e11a9f097f?size=1024"
-          />
-          <span class="status-ring idle"></span>
+      </div> -->
+          <div class="profile-header">
+            <div class="avatar-ring">
+              <img
+                alt="avatar"
+                class="avatar"
+                src="https://cdn.discordapp.com/avatars/969801848036917248/5ca6f43a96e5ab3a4b4e18e11a9f097f?size=1024"
+              />
+              <span class="status-ring idle"></span>
+            </div>
+            <div class="user-info">
+              <div class="username">CrepVN</div>
+              <div class="sub-username">"crepvn2009"</div>
+              <div class="desc">zzzzz</div>
+            </div>
+          </div>
+          <div class="sm">
+            <a
+              href="https://discord.com/users/969801848036917248"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="fa-brands fa-discord"
+              aria-label="Discord"
+            ></a>
+            <a
+              href="https://github.com/CrepMC"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="fa-brands fa-github"
+              aria-label="GitHub"
+            ></a>
+            <a
+              href="https://www.youtube.com/@crepmc_vn_4194"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="fa-brands fa-youtube"
+              aria-label="YouTube"
+            ></a>
+            <a
+              href="https://buymeacoffee.com/crepmc"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="fa-solid fa-mug-saucer"
+              aria-label="Buy Me A Coffee"
+            ></a>
+          </div>
         </div>
-        <div class="user-info">
-          <div class="username">CrepVN</div>
-          <div class="sub-username">"crepvn2009"</div>
-          <div class="desc">zzzzz</div>
-        </div>
       </div>
-      <div class="sm">
-        <a
-          href="https://discord.com/users/969801848036917248"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="fa-brands fa-discord"
-          aria-label="Discord"
-        ></a>
-        <a
-          href="https://github.com/CrepMC"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="fa-brands fa-github"
-          aria-label="GitHub"
-        ></a>
-        <a
-          href="https://www.youtube.com/@crepmc_vn_4194"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="fa-brands fa-youtube"
-          aria-label="YouTube"
-        ></a>
-        <a
-          href="https://buymeacoffee.com/crepmc"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="fa-solid fa-mug-saucer"
-          aria-label="Buy Me A Coffee"
-        ></a>
-      </div>
-    </div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

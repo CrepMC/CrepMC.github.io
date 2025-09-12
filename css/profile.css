@@ -1,0 +1,222 @@
+/* New container for hover effect */
+.hover-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.hover-container:hover {
+  z-index: 99;
+}
+
+.hover-container.hover-1 .profile-card-container {
+  transform: translateY(-50px);
+}
+
+.hover-container.hover-2 .profile-card-container {
+  transform: translateY(-50px);
+}
+
+.hover-container.hover-3 .profile-card-container {
+  transform: translateY(-50px);
+}
+
+/* Container chính */
+.profile-card-container {
+  background: #0d0d0d;
+  border-radius: 16px;
+  padding: 20px;
+  padding-top: 25px; /* Add some space at the top */
+  width: 360px;
+  height: auto;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  animation: swing 1s ease-in-out infinite alternate;
+  position: absolute;
+  top: 0; /* Start at the same position as the trigger */
+  opacity: 0;
+  visibility: hidden;
+  /* transform: translateY(-20px); */
+  transition: all 0.3s ease-in-out;
+}
+
+/* .profile-card-container:hover {
+  background: #0d0d0d;
+  border-radius: 16px;
+  padding: 20px;
+  width: 360px;
+  height: auto;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  animation: swing 1s ease 1 alternate;
+} */
+
+/* Show card on container hover */
+.hover-container:hover .profile-card-container {
+  opacity: 1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  visibility: visible;
+  animation: none;
+}
+
+.hover-container:hover.hover-1 .profile-card-container {
+  transform: translateY(-50px);
+}
+
+.hover-container:hover.hover-2 .profile-card-container {
+  transform: translateY(-50px);
+}
+
+.hover-container:hover.hover-3 .profile-card-container {
+  transform: translateY(-100px);
+}
+
+/* New Bar Trigger styles */
+.profile-bar-trigger {
+  width: 360px;
+  height: 50px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10; /* Ensure trigger is on top */
+  gap: 10px;
+}
+
+.hover-container:hover .profile-bar-trigger {
+  background: #1a1a1a;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.hover-container:hover.hover-1 .profile-bar-trigger {
+  transform: translateY(-150px);
+}
+
+.hover-container:hover.hover-2 .profile-bar-trigger {
+  transform: translateY(-150px);
+}
+
+.hover-container:hover.hover-3 .profile-bar-trigger {
+  transform: translateY(-150px);
+}
+
+.trigger-arrow {
+  transition: transform 0.3s ease;
+}
+
+.hover-container:hover .trigger-arrow {
+  transform: rotate(180deg);
+}
+
+/* Header với avatar + user info */
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.avatar-ring {
+  position: relative;
+  margin-right: 12px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #222;
+}
+
+.status-ring {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #0d0d0d;
+}
+
+.status-ring.idle {
+  background: #f1c40f;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.desc {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Activity card */
+.activities {
+  margin-bottom: 16px;
+}
+
+.other-activity-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.other-activity-card strong {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.timestamp {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* Social icons */
+.sm {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+}
+
+.sm a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.sm a:hover {
+  color: #1da1f2; /* đổi màu khi hover */
+}
+
+/* Floating music button */
+.floating-music-player {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.cd-icon {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
