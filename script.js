@@ -8,17 +8,50 @@ function startLeafAnimation() {
   }
 }
 
-// Main logic for loading sequence
 document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(function () {
-    const loadingElement = document.getElementById('hideLoading');
-    if (loadingElement) {
-      loadingElement.style.display = 'none';
-    }
-    document.getElementById('fadeOutScreen').style.display = 'block';
-    document.getElementById('fallingLeaves').style.display = 'block';
-    startLeafAnimation(); // Start the animation AFTER the container is visible
-  }, 1500); // Wait 1.5 seconds before starting the transition
+  const progressBar = document.querySelector('.progress');
+  const progressText = document.querySelector('.progress-text');
+  const loadingElement = document.getElementById('hideLoading');
+  const mainVideo = document.getElementById('mainVideo');
+
+  window.onload = () => {
+    // Ensure progress bar hits 100% visually
+    if (progressBar) progressBar.style.width = '100%';
+    if (progressText) progressText.textContent = '100%';
+
+    setTimeout(() => {
+      if (loadingElement) {
+        loadingElement.style.transition = 'opacity 0.5s ease';
+        loadingElement.style.opacity = '0';
+        setTimeout(() => {
+          loadingElement.style.display = 'none';
+        }, 500); // Wait for the fade-out transition to complete
+      }
+      if (mainVideo) {
+        mainVideo.style.display = 'block';
+        mainVideo.play();
+        mainVideo.addEventListener('ended', function () {
+          mainVideo.style.display = 'none';
+        });
+
+        // Start the fade-out screen 1 second after the video starts
+        setTimeout(() => {
+          const fadeOutScreen = document.getElementById('fadeOutScreen');
+          if (fadeOutScreen) fadeOutScreen.style.display = 'block';
+        }, 1200);
+      } else {
+        // If there is no video, show the fade screen immediately
+        const fadeOutScreen = document.getElementById('fadeOutScreen');
+        if (fadeOutScreen) fadeOutScreen.style.display = 'block';
+      }
+      
+      const fallingLeaves = document.getElementById('fallingLeaves');
+      if (fallingLeaves) fallingLeaves.style.display = 'block';
+
+      startLeafAnimation(); // Start the animation AFTER the container is visible
+    }, 500); // wait for progress to show 100%
+  };
+});
 
   // Dropdown menu logic
   const dropdownBtn = document.getElementById('dropdown-btn');
@@ -39,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-});
 var LeafScene = function (el) {
   this.viewport = el;
   this.world = document.createElement('div');

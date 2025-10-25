@@ -13,20 +13,27 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/profile.css" />
-    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/loading.css" />
   </head>
 
   <body>
     <div id="hideLoading" class="Loading">
-      <video width="100%" autoplay muted class="Loading-video">
-        <source
-          src="./Public/Loading.mp4"
-          type="video/mp4"
-          class="Loading-video"
-        />
-        Trình duyệt của bạn không hỗ trợ thẻ video.
-      </video>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="progress-text">0%</div>
     </div>
+    <video
+      width="100%"
+      muted
+      playsinline
+      class="Loading-video"
+      id="mainVideo"
+      style="display: none"
+    >
+      <source src="./Public/Loading.mp4" type="video/mp4" />
+      Trình duyệt của bạn không hỗ trợ thẻ video.
+    </video>
     <div class="fade-out-screen" id="fadeOutScreen"></div>
     <div class="falling-leaves" id="fallingLeaves"></div>
     <main class="content">
