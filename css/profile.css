@@ -13,7 +13,7 @@
 }
 
 .hover-container.hover-1 .profile-card-container {
-  transform: translateY(-50px);
+  transform: translateY(10px);
 }
 
 .hover-container.hover-2 .profile-card-container {
@@ -21,7 +21,7 @@
 }
 
 .hover-container.hover-3 .profile-card-container {
-  transform: translateY(-50px);
+  transform: translateY(-100px);
 }
 
 /* Container chính */
@@ -66,7 +66,7 @@
 }
 
 .hover-container:hover.hover-1 .profile-card-container {
-  transform: translateY(-100px);
+  transform: translateY(0px);
 }
 
 .hover-container:hover.hover-2 .profile-card-container {
@@ -74,7 +74,7 @@
 }
 
 .hover-container:hover.hover-3 .profile-card-container {
-  transform: translateY(-100px);
+  transform: translateY(-200px);
 }
 
 /* New Bar Trigger styles */
@@ -103,7 +103,7 @@
 }
 
 .hover-container:hover.hover-1 .profile-bar-trigger {
-  transform: translateY(-150px);
+  transform: translateY(-50px);
 }
 
 .hover-container:hover.hover-2 .profile-bar-trigger {
@@ -111,7 +111,7 @@
 }
 
 .hover-container:hover.hover-3 .profile-bar-trigger {
-  transform: translateY(-150px);
+  transform: translateY(-250px);
 }
 
 .trigger-arrow {
