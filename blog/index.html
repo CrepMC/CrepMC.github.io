@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Một góc nhỏ để viết, lưu và sắp xếp những điều đáng nhớ."
+    />
+    <meta name="theme-color" content="#07110b" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="Favicon.jpg" type="image/png" />
+    <title>My Blog</title>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#mainContent">Đi đến nội dung chính</a>
+
+    <div class="ambient ambient--one" aria-hidden="true"></div>
+    <div class="ambient ambient--two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="My Blog - Trang đầu">
+          <span class="brand-mark">
+            <img src="Favicon.jpg" alt="" width="44" height="44" />
+          </span>
+          <span class="brand-copy">
+            <strong>MY BLOG</strong>
+            <small>Personal space</small>
+          </span>
+        </a>
+
+        <nav class="main-nav" aria-label="Điều hướng chính">
+          <a href="#composer">Viết bài</a>
+          <a href="#posts">Bài viết</a>
+        </nav>
+
+        <button
+          class="icon-button theme-toggle"
+          id="themeToggle"
+          type="button"
+          aria-label="Chuyển sang giao diện sáng"
+          title="Đổi giao diện"
+        >
+          <svg class="icon icon--sun" aria-hidden="true" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon icon--moon" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="mainContent">
+      <section class="hero" id="top" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true"></span> Không gian của riêng bạn</p>
+          <h1 id="heroTitle">Ghi lại điều hay.<br /><em>Giữ lại điều đáng nhớ.</em></h1>
+          <p class="hero-description">
+            Viết nhanh một ý tưởng, lưu một câu chuyện và quay lại bất cứ lúc nào.
+            Mọi nội dung được lưu ngay trên trình duyệt này.
+          </p>
+        </div>
+
+        <div class="hero-stats" aria-label="Thống kê blog">
+          <div class="stat-card">
+            <span id="postCount">00</span>
+            <small>Bài viết</small>
+          </div>
+          <div class="stat-card stat-card--accent">
+            <span id="wordCount">00</span>
+            <small>Từ đã viết</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="composer-card" id="composer" aria-labelledby="composerTitle">
+        <div class="section-heading composer-heading">
+          <div>
+            <p class="section-kicker">NEW ENTRY</p>
+            <h2 id="composerTitle">Tạo bài viết mới</h2>
+          </div>
+          <div class="draft-status" id="draftStatus" role="status" aria-live="polite">
+            <span aria-hidden="true"></span>
+            Bản nháp tự động lưu
+          </div>
+        </div>
+
+        <form id="publishForm" novalidate>
+          <div class="form-row">
+            <div class="field field--grow">
+              <label for="postTitle">Tiêu đề</label>
+              <input
+                id="postTitle"
+                name="title"
+                type="text"
+                maxlength="100"
+                autocomplete="off"
+                placeholder="Hôm nay bạn muốn kể điều gì?"
+              />
+            </div>
+
+            <div class="field field--category">
+              <label for="postCategory">Chủ đề</label>
+              <select id="postCategory" name="category">
+                <option value="Nhật ký">Nhật ký</option>
+                <option value="Ý tưởng">Ý tưởng</option>
+                <option value="Học tập">Học tập</option>
+                <option value="Công việc">Công việc</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="label-row">
+              <label for="inputText">Nội dung</label>
+              <span id="contentCounter">0 ký tự · 1 phút đọc</span>
+            </div>
+            <textarea
+              id="inputText"
+              name="content"
+              rows="9"
+              maxlength="12000"
+              placeholder="Bắt đầu viết câu chuyện của bạn..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="media-field">
+            <input type="file" id="fileInput" accept="video/*" hidden />
+            <label class="upload-zone" id="uploadZone" for="fileInput">
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 16V4M7 9l5-5 5 5M5 20h14"></path>
+                </svg>
+              </span>
+              <span>
+                <strong>Thêm video</strong>
+                <small>Nhấn để chọn hoặc kéo thả vào đây · tối đa 250 MB</small>
+              </span>
+            </label>
+
+            <div class="video-preview" id="videoPreview" hidden>
+              <video id="draftVideo" controls preload="metadata" playsinline></video>
+              <div class="video-meta">
+                <span>
+                  <strong id="videoName"></strong>
+                  <small id="videoSize"></small>
+                </span>
+                <button class="text-button text-button--danger" id="removeVideo" type="button">
+                  Gỡ video
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <p class="form-error" id="formError" role="alert" hidden></p>
+
+          <div class="form-actions">
+            <button class="secondary-button" id="clearDraft" type="button">Xóa bản nháp</button>
+            <button class="primary-button" id="publishButton" type="submit">
+              <span id="publishButtonLabel">Xuất bản bài viết</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m5 12 4 4L19 6"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="posts-section" id="posts" aria-labelledby="postsTitle">
+        <div class="section-heading posts-heading">
+          <div>
+            <p class="section-kicker">JOURNAL</p>
+            <h2 id="postsTitle">Bài viết gần đây</h2>
+          </div>
+
+          <div class="post-tools">
+            <label class="search-field" for="searchInput">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-4-4"></path>
+              </svg>
+              <span class="sr-only">Tìm bài viết</span>
+              <input id="searchInput" type="search" placeholder="Tìm bài viết..." autocomplete="off" />
+            </label>
+
+            <label class="filter-field" for="filterCategory">
+              <span class="sr-only">Lọc theo chủ đề</span>
+              <select id="filterCategory">
+                <option value="Tất cả">Tất cả chủ đề</option>
+                <option value="Nhật ký">Nhật ký</option>
+                <option value="Ý tưởng">Ý tưởng</option>
+                <option value="Học tập">Học tập</option>
+                <option value="Công việc">Công việc</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="posts-grid" id="publishedContent" aria-live="polite"></div>
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <h3>Trang đầu tiên đang chờ bạn</h3>
+          <p>Viết vài dòng ở phía trên rồi nhấn “Xuất bản bài viết”.</p>
+          <a class="secondary-button" href="#composer">Viết bài đầu tiên</a>
+        </div>
+
+        <div class="empty-state empty-state--search" id="noResults" hidden>
+          <h3>Không tìm thấy bài viết</h3>
+          <p>Hãy thử một từ khóa hoặc chủ đề khác.</p>
+          <button class="secondary-button" id="resetFilters" type="button">Xóa bộ lọc</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <span class="footer-brand">MY BLOG</span>
+        <p>Made for thoughts worth keeping.</p>
+      </div>
+      <a href="#top">Lên đầu trang <span aria-hidden="true">↑</span></a>
+    </footer>
+
+    <dialog class="confirm-dialog" id="deleteDialog" aria-labelledby="deleteDialogTitle">
+      <form method="dialog">
+        <div class="dialog-icon" aria-hidden="true">!</div>
+        <h2 id="deleteDialogTitle">Xóa bài viết này?</h2>
+        <p>Bài viết và video đi kèm sẽ bị xóa khỏi trình duyệt này.</p>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel">Giữ lại</button>
+          <button class="danger-button" id="confirmDelete" value="confirm">Xóa bài viết</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+      <span class="toast-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></svg>
+      </span>
+      <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
