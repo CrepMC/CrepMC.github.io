@@ -1,687 +1,783 @@
 (() => {
   'use strict';
 
-  const DB_NAME = 'my-blog-local-database';
-  const DB_VERSION = 1;
-  const POSTS_STORE = 'posts';
-  const DRAFT_KEY = 'my-blog-draft-v2';
-  const THEME_KEY = 'my-blog-theme';
-  const FALLBACK_POSTS_KEY = 'my-blog-posts-fallback';
-  const MAX_VIDEO_SIZE = 250 * 1024 * 1024;
+  /*
+    THÊM BÀI VIẾT:
+    Thêm một object vào POSTS và dùng slug duy nhất.
 
-  const elements = {
-    html: document.documentElement,
-    themeMeta: document.querySelector('meta[name="theme-color"]'),
-    themeToggle: document.getElementById('themeToggle'),
-    form: document.getElementById('publishForm'),
-    title: document.getElementById('postTitle'),
-    category: document.getElementById('postCategory'),
-    content: document.getElementById('inputText'),
-    counter: document.getElementById('contentCounter'),
-    fileInput: document.getElementById('fileInput'),
-    uploadZone: document.getElementById('uploadZone'),
-    videoPreview: document.getElementById('videoPreview'),
-    draftVideo: document.getElementById('draftVideo'),
-    videoName: document.getElementById('videoName'),
-    videoSize: document.getElementById('videoSize'),
-    removeVideo: document.getElementById('removeVideo'),
-    formError: document.getElementById('formError'),
-    clearDraft: document.getElementById('clearDraft'),
-    publishButton: document.getElementById('publishButton'),
-    publishButtonLabel: document.getElementById('publishButtonLabel'),
-    composerTitle: document.getElementById('composerTitle'),
-    draftStatus: document.getElementById('draftStatus'),
-    postsContainer: document.getElementById('publishedContent'),
-    emptyState: document.getElementById('emptyState'),
-    noResults: document.getElementById('noResults'),
-    searchInput: document.getElementById('searchInput'),
-    filterCategory: document.getElementById('filterCategory'),
-    resetFilters: document.getElementById('resetFilters'),
-    postCount: document.getElementById('postCount'),
-    wordCount: document.getElementById('wordCount'),
-    deleteDialog: document.getElementById('deleteDialog'),
-    confirmDelete: document.getElementById('confirmDelete'),
-    toast: document.getElementById('toast'),
-    toastMessage: document.getElementById('toastMessage'),
-  };
+    category:
+      "code"  = Lập trình
+      "game"  = Game
+      "notes" = Ghi chép
 
-  const state = {
-    db: null,
-    storageMode: 'indexedDB',
-    posts: [],
-    editingId: null,
-    pendingDeleteId: null,
-    selectedVideo: null,
-    draftVideoUrl: null,
-    postVideoUrls: [],
-    draftTimer: null,
-    toastTimer: null,
-  };
+    cover:
+      "code"  = Cửa sổ code
+      "game"  = Creeper
+      "notes" = Tờ ghi chú
 
-  function safeStorageGet(key) {
+    body là HTML do chính bạn biên soạn.
+    Không dùng trực tiếp HTML do người lạ gửi vào.
+  */
+
+  const POSTS = [
+    {
+      slug: 'gamebot-cong-dong-game',
+      category: 'game',
+      label: 'GAME & CỘNG ĐỒNG',
+      cover: 'game',
+
+      title: 'GameBot: một cộng đồng game bắt đầu từ đâu?',
+
+      excerpt:
+        'Trước những tính năng và giao diện, có một câu hỏi nhỏ hơn: ' +
+        'điều gì khiến người chơi muốn quay lại?',
+
+      body: `
+        <h2>Bắt đầu từ người chơi</h2>
+
+        <p>
+          GameBot là ý tưởng website cộng đồng game của tôi.
+          Bản nháp này đặt ra một hướng tiếp cận: trước khi viết
+          thêm tính năng, hãy làm rõ nơi này dành cho ai và giúp
+          họ điều gì.
+        </p>
+
+        <p>
+          Một người có thể vào để tìm bạn chơi cùng. Người khác
+          muốn hỏi cách xử lý một lỗi, chia sẻ một bản mod hoặc
+          kể về thế giới vừa xây. Những nhu cầu ấy có vẻ gần
+          nhau, nhưng cần những cách tổ chức khác nhau.
+        </p>
+
+        <h2>Một vòng sử dụng thật đơn giản</h2>
+
+        <p>
+          Phiên bản đầu có thể bắt đầu bằng một vòng: tìm được
+          chủ đề mình quan tâm, đọc một cuộc thảo luận hữu ích,
+          rồi dễ dàng tham gia.
+        </p>
+
+        <ul>
+          <li>
+            Chủ đề rõ ràng để người mới biết nên bắt đầu từ đâu.
+          </li>
+          <li>
+            Bài viết dễ đọc và phản hồi dễ theo dõi.
+          </li>
+          <li>
+            Một cách báo cáo nội dung gây rối, cùng nguyên tắc
+            ứng xử dễ hiểu.
+          </li>
+        </ul>
+
+        <blockquote>
+          Một cộng đồng cần lý do để quay lại, chứ không chỉ
+          một lý do để đăng ký.
+        </blockquote>
+
+        <h2>Điều cần thử trước</h2>
+
+        <p>
+          Tôi muốn kiểm chứng vòng sử dụng ấy bằng một nhóm nhỏ
+          trước khi mở rộng. Khi biết người chơi thực sự gặp
+          vướng mắc ở đâu, việc chọn tính năng tiếp theo sẽ có
+          cơ sở hơn.
+        </p>
+
+        <p>
+          Đây là hướng phác thảo cho GameBot, chưa phải mô tả
+          một sản phẩm đã hoàn thiện.
+        </p>
+      `
+    },
+
+    {
+      slug: 'react-ecommerce-tu-giao-dien-den-he-thong',
+      category: 'code',
+      label: 'LẬP TRÌNH',
+      cover: 'code',
+
+      title: 'Từ một giao diện đến cả cửa hàng.',
+
+      excerpt:
+        'Ghi chép cho dự án Ecommerce bằng React: trang bán hàng, ' +
+        'khu quản trị và câu hỏi về quyền truy cập.',
+
+      body: `
+        <h2>Giao diện chỉ là điểm bắt đầu</h2>
+
+        <p>
+          Dự án Ecommerce của tôi có cả phía khách mua hàng và
+          khu quản trị. Nhìn ở phía người mua, đó là danh sách
+          sản phẩm, giỏ hàng và thanh toán. Nhìn từ phía vận
+          hành, đó còn là sản phẩm, đơn hàng, người dùng và
+          nội dung cần quản lý.
+        </p>
+
+        <p>
+          Bản nháp này không cố liệt kê mọi tính năng. Tôi muốn
+          dùng nó để làm rõ cách chia trách nhiệm giữa các phần
+          của hệ thống.
+        </p>
+
+        <h2>Chia route theo nhu cầu</h2>
+
+        <p>
+          Trang công khai cần dễ tiếp cận. Trang tài khoản cần
+          xác định người dùng. Khu quản trị cần kiểm tra cả
+          danh tính lẫn quyền thực hiện từng thao tác.
+        </p>
+
+        <p>
+          Ở phía React, <code>RequireAuth</code> và
+          <code>RequireAdmin</code> có thể giúp điều hướng và
+          ẩn giao diện không phù hợp. Nhưng kiểm tra trên trình
+          duyệt không đủ để bảo vệ dữ liệu: API vẫn phải xác
+          thực và kiểm tra quyền trên máy chủ.
+        </p>
+
+        <h2>Đi hết một luồng trước</h2>
+
+        <p>
+          Thay vì chỉ hoàn thành nhiều màn hình rời rạc, một
+          mục tiêu thử nghiệm có thể là đi hết luồng xem sản
+          phẩm → thêm giỏ → tạo đơn → xem đơn trong khu quản trị.
+        </p>
+
+        <ul>
+          <li>
+            Dữ liệu thiếu hoặc không hợp lệ được xử lý thế nào?
+          </li>
+          <li>
+            Người dùng nhìn thấy gì khi mạng lỗi?
+          </li>
+          <li>
+            Nếu bấm gửi hai lần, hệ thống có tạo trùng đơn không?
+          </li>
+        </ul>
+
+        <blockquote>
+          Một luồng chạy trọn vẹn thường cho thấy nhiều vấn đề
+          hơn một loạt màn hình đẹp đứng riêng.
+        </blockquote>
+
+        <h2>Những phần để làm tiếp</h2>
+
+        <p>
+          Phân quyền chi tiết, thanh toán, đánh giá và các công
+          cụ quản trị cần được thiết kế theo nhu cầu thực tế.
+          Đây là ghi chú định hướng cho dự án, chưa phải tuyên
+          bố các chức năng đó đã triển khai xong.
+        </p>
+      `
+    },
+
+    {
+      slug: 'y-tuong-chua-thanh-hinh',
+      category: 'notes',
+      label: 'GHI CHÉP',
+      cover: 'notes',
+
+      title: 'Chừa một chỗ cho ý tưởng chưa thành hình.',
+
+      excerpt:
+        'Không phải điều gì cũng cần thành một dự án ngay. ' +
+        'Đôi khi, một ghi chú đủ rõ là bước đầu tiên.',
+
+      body: `
+        <h2>Một câu hỏi cũng đáng được giữ lại</h2>
+
+        <p>
+          Học cách tạo AI, xây một cộng đồng game, làm một
+          website bán hàng: những hướng quan tâm ấy có thể
+          dẫn tới rất nhiều câu hỏi. Blog này có thể là nơi
+          giữ lại chúng trước khi có câu trả lời hoàn chỉnh.
+        </p>
+
+        <p>
+          Bản nháp mở đầu này gợi ý một cách viết đơn giản:
+          bắt đầu từ điều đang thắc mắc, ghi lại điều đã thử
+          và nói rõ phần mình chưa biết.
+        </p>
+
+        <h2>Ghi lại cả phần chưa hiểu</h2>
+
+        <p>
+          Một bài ghi chép không cần đóng vai một hướng dẫn
+          toàn diện. Nó có thể nhỏ hơn: hôm nay gặp lỗi gì,
+          đã kiểm tra điều gì và tại sao cách sửa có vẻ hợp lý.
+        </p>
+
+        <ul>
+          <li>Câu hỏi ban đầu là gì?</li>
+          <li>Thông tin nào đã được kiểm chứng?</li>
+          <li>Điều gì vẫn chỉ là phỏng đoán?</li>
+          <li>Lần sau quay lại, nên thử bước nào?</li>
+        </ul>
+
+        <h2>Để việc học có dấu vết</h2>
+
+        <p>
+          Những ghi chú ngắn giúp nhìn lại cách mình suy nghĩ.
+          Có bài sẽ trở thành hướng dẫn, có bài chỉ là một mốc
+          đánh dấu trong quá trình học.
+        </p>
+
+        <blockquote>
+          Chưa có đáp án hoàn chỉnh vẫn có thể có một câu hỏi
+          đáng giữ lại.
+        </blockquote>
+
+        <p>
+          Nội dung này là lời mở đầu gợi ý cho góc viết; bạn có
+          thể thay bằng câu chuyện và giọng văn của chính mình.
+        </p>
+      `
+    }
+  ];
+
+  /* ==================== PHẦN TỬ VÀ TRẠNG THÁI ==================== */
+
+  const $ = selector => document.querySelector(selector);
+
+  const list = $('#posts');
+  const reader = $('#reader');
+  const article = $('#article');
+  const search = $('#search');
+  const count = $('#count');
+  const empty = $('#empty');
+
+  const SAVED_KEY = 'crepmc-blog-bookmarks-v1';
+  const THEME_KEY = 'crepmc-blog-theme-v1';
+
+  let filter = 'all';
+  let current = null;
+  let toastTimer;
+
+  /* ==================== LƯU TRỮ ==================== */
+
+  function readStorage(key) {
     try {
-      return window.localStorage.getItem(key);
-    } catch (error) {
+      return localStorage.getItem(key);
+    } catch {
       return null;
     }
   }
 
-  function safeStorageSet(key, value) {
+  function writeStorage(key, value) {
     try {
-      window.localStorage.setItem(key, value);
+      localStorage.setItem(key, value);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }
 
-  function safeStorageRemove(key) {
+  function initialSaved() {
     try {
-      window.localStorage.removeItem(key);
-    } catch (error) {
-      // The blog still works in the current session when browser storage is blocked.
+      const value = JSON.parse(readStorage(SAVED_KEY) || '[]');
+
+      return new Set(
+        Array.isArray(value)
+          ? value.filter(slug =>
+              POSTS.some(post => post.slug === slug)
+            )
+          : []
+      );
+    } catch {
+      return new Set();
     }
   }
 
-  function setTheme(theme) {
-    const nextTheme = theme === 'light' ? 'light' : 'dark';
-    elements.html.dataset.theme = nextTheme;
-    elements.themeMeta.setAttribute('content', nextTheme === 'dark' ? '#07100a' : '#eff5ec');
-    elements.themeToggle.setAttribute(
-      'aria-label',
-      nextTheme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối',
-    );
-    safeStorageSet(THEME_KEY, nextTheme);
-  }
+  const saved = initialSaved();
 
-  function initialiseTheme() {
-    const savedTheme = safeStorageGet(THEME_KEY);
-    const preferredTheme = window.matchMedia?.('(prefers-color-scheme: light)').matches
-      ? 'light'
-      : 'dark';
-    setTheme(savedTheme || preferredTheme);
-  }
+  /* ==================== HÀM HỖ TRỢ ==================== */
 
-  function openDatabase() {
-    return new Promise((resolve, reject) => {
-      if (!('indexedDB' in window)) {
-        reject(new Error('IndexedDB is unavailable'));
-        return;
-      }
+  const escapeHTML = value =>
+    String(value).replace(/[&<>"']/g, character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[character]));
 
-      const request = window.indexedDB.open(DB_NAME, DB_VERSION);
-
-      request.onupgradeneeded = () => {
-        const database = request.result;
-        if (!database.objectStoreNames.contains(POSTS_STORE)) {
-          const store = database.createObjectStore(POSTS_STORE, { keyPath: 'id' });
-          store.createIndex('createdAt', 'createdAt');
-        }
-      };
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error('Cannot open IndexedDB'));
-      request.onblocked = () => reject(new Error('IndexedDB is blocked by another tab'));
-    });
-  }
-
-  function databaseRequest(mode, action) {
-    return new Promise((resolve, reject) => {
-      const transaction = state.db.transaction(POSTS_STORE, mode);
-      const store = transaction.objectStore(POSTS_STORE);
-      const request = action(store);
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error('Database request failed'));
-      transaction.onabort = () => reject(transaction.error || new Error('Database transaction failed'));
-    });
-  }
-
-  function getFallbackPosts() {
-    try {
-      const parsed = JSON.parse(safeStorageGet(FALLBACK_POSTS_KEY) || '[]');
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-      return [];
-    }
-  }
-
-  function saveFallbackPosts() {
-    const serialisablePosts = state.posts.map(({ video, ...post }) => ({
-      ...post,
-      video: null,
-      videoUnavailable: Boolean(video),
-    }));
-    return safeStorageSet(FALLBACK_POSTS_KEY, JSON.stringify(serialisablePosts));
-  }
-
-  async function initialiseStorage() {
-    try {
-      state.db = await openDatabase();
-      state.storageMode = 'indexedDB';
-      state.posts = await databaseRequest('readonly', (store) => store.getAll());
-    } catch (error) {
-      state.storageMode = 'fallback';
-      state.posts = getFallbackPosts();
-      showToast('Trình duyệt đang giới hạn lưu trữ; bài chữ vẫn được lưu, video chỉ giữ trong phiên này.');
-    }
-
-    sortPosts();
-  }
-
-  async function persistPost(post) {
-    if (state.storageMode === 'indexedDB') {
-      await databaseRequest('readwrite', (store) => store.put(post));
-      const existingIndex = state.posts.findIndex((item) => item.id === post.id);
-      if (existingIndex >= 0) state.posts.splice(existingIndex, 1, post);
-      else state.posts.push(post);
-      return;
-    }
-
-    const existingIndex = state.posts.findIndex((item) => item.id === post.id);
-    if (existingIndex >= 0) state.posts.splice(existingIndex, 1, post);
-    else state.posts.push(post);
-    saveFallbackPosts();
-  }
-
-  async function removeStoredPost(id) {
-    if (state.storageMode === 'indexedDB') {
-      await databaseRequest('readwrite', (store) => store.delete(id));
-    }
-    state.posts = state.posts.filter((post) => post.id !== id);
-    if (state.storageMode === 'fallback') saveFallbackPosts();
-  }
-
-  function sortPosts() {
-    state.posts.sort((a, b) => Number(b.updatedAt || b.createdAt) - Number(a.updatedAt || a.createdAt));
-  }
-
-  function makeId() {
-    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
-    return `post-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  }
-
-  function countWords(value) {
-    const trimmed = String(value || '').trim();
-    return trimmed ? trimmed.split(/\s+/u).length : 0;
-  }
-
-  function readingMinutes(value) {
-    return Math.max(1, Math.ceil(countWords(value) / 200));
-  }
-
-  function normaliseText(value) {
-    return String(value || '')
+  const normalise = value =>
+    value
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .toLocaleLowerCase('vi-VN');
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D')
+      .toLowerCase();
+
+  function minutes(post) {
+    const node = document.createElement('div');
+    node.innerHTML = post.body;
+
+    const words = node.textContent
+      .trim()
+      .split(/\s+/)
+      .length;
+
+    return Math.max(1, Math.ceil(words / 220));
   }
 
-  function formatFileSize(bytes) {
-    if (!Number.isFinite(bytes) || bytes <= 0) return '0 MB';
-    const units = ['B', 'KB', 'MB', 'GB'];
-    const unitIndex = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
-    const value = bytes / 1024 ** unitIndex;
-    return `${value >= 10 || unitIndex === 0 ? value.toFixed(0) : value.toFixed(1)} ${units[unitIndex]}`;
+  function toast(message) {
+    clearTimeout(toastTimer);
+
+    const node = $('#toast');
+
+    // Đặt thông báo vào dialog khi đang đọc để nó luôn hiện được.
+    (reader.open ? reader : document.body).append(node);
+
+    node.textContent = message;
+    node.classList.add('show');
+
+    toastTimer = setTimeout(() => {
+      node.classList.remove('show');
+    }, 3200);
   }
 
-  function formatPostDate(timestamp, wasEdited) {
-    const date = new Date(Number(timestamp));
-    if (Number.isNaN(date.getTime())) return '';
-    const formatted = new Intl.DateTimeFormat('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-    return wasEdited ? `Đã sửa · ${formatted}` : formatted;
-  }
+  /* ==================== MINH HỌA BẰNG CSS ==================== */
 
-  function createElement(tagName, className, text) {
-    const element = document.createElement(tagName);
-    if (className) element.className = className;
-    if (text !== undefined) element.textContent = text;
-    return element;
-  }
+  function cover(post) {
+    if (post.cover === 'game') {
+      return `
+        <div class="pixel-face">
+          ${'<span></span>'.repeat(25)}
+        </div>
 
-  function updateStats() {
-    const totalWords = state.posts.reduce((total, post) => total + countWords(post.content), 0);
-    elements.postCount.textContent = String(state.posts.length).padStart(2, '0');
-    elements.wordCount.textContent = new Intl.NumberFormat('vi-VN').format(totalWords).padStart(2, '0');
-  }
-
-  function revokePostVideoUrls() {
-    state.postVideoUrls.forEach((url) => URL.revokeObjectURL(url));
-    state.postVideoUrls = [];
-  }
-
-  function buildPostCard(post, index) {
-    const hasVideo = post.video instanceof Blob;
-    const article = createElement('article', `post-card${hasVideo ? ' post-card--video' : ''}`);
-    article.dataset.id = post.id;
-    article.style.animationDelay = `${Math.min(index * 55, 220)}ms`;
-
-    if (hasVideo) {
-      const videoWrap = createElement('div', 'post-video-wrap');
-      const video = createElement('video', 'post-video');
-      const videoUrl = URL.createObjectURL(post.video);
-      state.postVideoUrls.push(videoUrl);
-      video.src = videoUrl;
-      video.controls = true;
-      video.preload = 'metadata';
-      video.playsInline = true;
-      video.setAttribute('aria-label', `Video của bài viết ${post.title}`);
-      videoWrap.append(video);
-      article.append(videoWrap);
+        <span class="cover-label">
+          G A M E B O T / A WORK IN PROGRESS
+        </span>
+      `;
     }
 
-    const body = createElement('div', 'post-card__body');
-    const topLine = createElement('div', 'post-card__topline');
-    topLine.append(
-      createElement('span', 'post-category', post.category || 'Khác'),
-      createElement(
-        'time',
-        'post-date',
-        formatPostDate(post.updatedAt || post.createdAt, post.updatedAt !== post.createdAt),
-      ),
-    );
+    if (post.cover === 'code') {
+      return `
+        <div class="code-window">
+          <div class="window-dots">● ● ●</div>
 
-    const title = createElement('h3', 'post-title', post.title || 'Bài viết không tiêu đề');
-    const content = createElement('p', 'post-content', post.content || 'Bài viết có video đính kèm.');
-
-    body.append(topLine, title, content);
-
-    if ((post.content || '').length > 380 || (post.content || '').split('\n').length > 6) {
-      const readMore = createElement('button', 'text-button read-more', 'Đọc tiếp');
-      readMore.type = 'button';
-      readMore.dataset.action = 'expand';
-      readMore.setAttribute('aria-expanded', 'false');
-      body.append(readMore);
+          <code>
+            <b>const</b> idea = {<br />
+            &nbsp; build: <b>"something useful"</b>,<br />
+            &nbsp; status: <b>"learning"</b><br />
+            };
+          </code>
+        </div>
+      `;
     }
 
-    const footer = createElement('div', 'post-card__footer');
-    footer.append(createElement('span', 'reading-time', `${readingMinutes(post.content)} phút đọc`));
-
-    const actions = createElement('div', 'post-actions');
-    const editButton = createElement('button', 'post-action', 'Chỉnh sửa');
-    editButton.type = 'button';
-    editButton.dataset.action = 'edit';
-    const deleteButton = createElement('button', 'post-action post-action--delete', 'Xóa');
-    deleteButton.type = 'button';
-    deleteButton.dataset.action = 'delete';
-    actions.append(editButton, deleteButton);
-    footer.append(actions);
-    body.append(footer);
-    article.append(body);
-
-    return article;
+    return `
+      <div class="paper">
+        <small>NOTE TO SELF / 001</small>
+        <p>Chưa rõ.<br />Cứ ghi lại đã.</p>
+      </div>
+    `;
   }
 
-  function renderPosts() {
-    revokePostVideoUrls();
-    elements.postsContainer.replaceChildren();
-    sortPosts();
-    updateStats();
+  /* ==================== DANH SÁCH BÀI ==================== */
 
-    const query = normaliseText(elements.searchInput.value.trim());
-    const category = elements.filterCategory.value;
-    const filteredPosts = state.posts.filter((post) => {
-      const matchesCategory = category === 'Tất cả' || post.category === category;
-      const haystack = normaliseText(`${post.title} ${post.content} ${post.category}`);
-      return matchesCategory && (!query || haystack.includes(query));
+  function render() {
+    const query = normalise(search.value.trim());
+
+    const matches = POSTS.filter(post => {
+      const matchesFilter =
+        filter === 'all' ||
+        (
+          filter === 'saved'
+            ? saved.has(post.slug)
+            : post.category === filter
+        );
+
+      const searchable = normalise(
+        `${post.title} ${post.excerpt} ${post.label} ` +
+        post.body.replace(/<[^>]*>/g, ' ')
+      );
+
+      return matchesFilter && searchable.includes(query);
     });
 
-    const hasAnyPosts = state.posts.length > 0;
-    elements.emptyState.hidden = hasAnyPosts;
-    elements.noResults.hidden = !hasAnyPosts || filteredPosts.length > 0;
+    count.textContent =
+      `${String(matches.length).padStart(2, '0')} / ` +
+      `${String(POSTS.length).padStart(2, '0')} BÀI VIẾT`;
 
-    const fragment = document.createDocumentFragment();
-    filteredPosts.forEach((post, index) => fragment.append(buildPostCard(post, index)));
-    elements.postsContainer.append(fragment);
+    empty.hidden = matches.length > 0;
+
+    $('#empty-text').textContent =
+      filter === 'saved' && !saved.size
+        ? 'Nhấn “Lưu bài” ở một bài viết để tìm lại tại đây, trên trình duyệt này.'
+        : 'Thử đổi từ khóa hoặc chủ đề nhé.';
+
+    list.innerHTML = matches.map(post => {
+      const isSaved = saved.has(post.slug);
+
+      return `
+        <article class="post">
+          <div
+            class="cover cover-${post.cover}"
+            aria-hidden="true"
+          >
+            ${cover(post)}
+          </div>
+
+          <div class="post-body">
+            <div class="post-meta">
+              <span>${escapeHTML(post.label)}</span>
+              <span>${minutes(post)} PHÚT ĐỌC · BẢN NHÁP</span>
+            </div>
+
+            <h3>
+              <a href="#bai/${post.slug}">
+                ${escapeHTML(post.title)}
+              </a>
+            </h3>
+
+            <p class="excerpt">
+              ${escapeHTML(post.excerpt)}
+            </p>
+
+            <div class="post-bottom">
+              <a class="read-link" href="#bai/${post.slug}">
+                Mở trang viết
+                <span aria-hidden="true">↗</span>
+              </a>
+
+              <button
+                class="save"
+                type="button"
+                data-save="${post.slug}"
+                aria-pressed="${isSaved}"
+                aria-label="${isSaved ? 'Bỏ lưu' : 'Lưu'}: ${escapeHTML(post.title)}"
+              >
+                ${isSaved ? '✓ Đã lưu' : '+ Lưu bài'}
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
   }
 
-  function updateCounter() {
-    const length = elements.content.value.length;
-    elements.counter.textContent = `${new Intl.NumberFormat('vi-VN').format(length)} ký tự · ${readingMinutes(elements.content.value)} phút đọc`;
+  /* ==================== LƯU BÀI ==================== */
+
+  function syncSaved() {
+    document.querySelectorAll('[data-save]').forEach(button => {
+      const isSaved = saved.has(button.dataset.save);
+      const post = POSTS.find(
+        item => item.slug === button.dataset.save
+      );
+
+      button.setAttribute('aria-pressed', String(isSaved));
+
+      button.setAttribute(
+        'aria-label',
+        `${isSaved ? 'Bỏ lưu' : 'Lưu'}: ${post.title}`
+      );
+
+      button.textContent = isSaved
+        ? '✓ Đã lưu'
+        : '+ Lưu bài';
+    });
+
+    if (current) {
+      const isSaved = saved.has(current.slug);
+
+      $('#save-reader').textContent = isSaved
+        ? '✓ Đã lưu · Bỏ lưu'
+        : '+ Lưu bài';
+
+      $('#save-reader').setAttribute(
+        'aria-pressed',
+        String(isSaved)
+      );
+    }
   }
 
-  function setDraftStatus(message, isSaving = false) {
-    elements.draftStatus.lastChild.textContent = ` ${message}`;
-    elements.draftStatus.classList.toggle('is-saving', isSaving);
+  function toggleSave(slug) {
+    if (!POSTS.some(post => post.slug === slug)) return;
+
+    saved.has(slug)
+      ? saved.delete(slug)
+      : saved.add(slug);
+
+    const persisted = writeStorage(
+      SAVED_KEY,
+      JSON.stringify([...saved])
+    );
+
+    if (filter === 'saved') {
+      render();
+
+      if (!reader.open) {
+        const nextFocus =
+          list.querySelector('[data-save]') ||
+          $('[data-filter="saved"]');
+
+        nextFocus.focus();
+      }
+    }
+
+    syncSaved();
+
+    if (!persisted) {
+      toast(
+        'Chỉ lưu trong phiên này vì trình duyệt đang chặn lưu trữ.'
+      );
+    } else {
+      toast(
+        saved.has(slug)
+          ? 'Đã lưu trên trình duyệt này.'
+          : 'Đã bỏ lưu bài viết.'
+      );
+    }
   }
 
-  function saveDraft() {
-    window.clearTimeout(state.draftTimer);
-    setDraftStatus('Đang lưu...', true);
+  /* ==================== ĐỌC BÀI ==================== */
 
-    state.draftTimer = window.setTimeout(() => {
-      const draft = {
-        title: elements.title.value,
-        category: elements.category.value,
-        content: elements.content.value,
-        editingId: state.editingId,
-        savedAt: Date.now(),
-      };
-      const hasDraft = draft.title.trim() || draft.content.trim();
-      const saved = hasDraft
-        ? safeStorageSet(DRAFT_KEY, JSON.stringify(draft))
-        : (safeStorageRemove(DRAFT_KEY), true);
+  function updateProgress() {
+    const max = reader.scrollHeight - reader.clientHeight;
 
-      if (!saved) {
-        setDraftStatus('Không thể tự lưu bản nháp');
+    const progress = max > 0
+      ? Math.min(1, reader.scrollTop / max)
+      : 1;
+
+    $('#reading-progress').style.transform =
+      `scaleX(${progress})`;
+  }
+
+  function openPost(post) {
+    current = post;
+
+    article.innerHTML = `
+      <div class="post-meta">
+        <span>${escapeHTML(post.label)}</span>
+        <span>${minutes(post)} PHÚT ĐỌC</span>
+      </div>
+
+      <h1 class="article-title" id="article-title">
+        ${escapeHTML(post.title)}
+      </h1>
+
+      <p class="article-summary">
+        ${escapeHTML(post.excerpt)}
+      </p>
+
+      <div class="article-author">
+        Góc viết của Phạm Đức Nhân / CrepMC<br />
+        Bản nháp gợi ý · Chưa phải bài do Nhân tự viết
+      </div>
+
+      <div class="article-content">
+        ${post.body}
+      </div>
+
+      <p class="article-end">
+        Bạn vừa đọc hết một trang.
+        Cảm ơn đã ghé góc nhỏ này.
+      </p>
+    `;
+
+    $('#toc').replaceChildren();
+
+    article.querySelectorAll('h2').forEach((heading, index) => {
+      heading.id = `section-${index}`;
+
+      const link = document.createElement('a');
+
+      link.href = `#section-${index}`;
+      link.textContent = heading.textContent;
+
+      link.addEventListener('click', event => {
+        event.preventDefault();
+
+        const reduceMotion = matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+        heading.scrollIntoView({
+          behavior: reduceMotion ? 'instant' : 'smooth',
+          block: 'start'
+        });
+      });
+
+      $('#toc').append(link);
+    });
+
+    if (!reader.open) {
+      reader.showModal();
+    }
+
+    document.body.classList.add('reading');
+
+    reader.scrollTop = 0;
+
+    syncSaved();
+    updateProgress();
+  }
+
+  function route() {
+    if (location.hash.startsWith('#bai/')) {
+      const post = POSTS.find(
+        item => `#bai/${item.slug}` === location.hash
+      );
+
+      if (post) {
+        openPost(post);
         return;
       }
 
-      const time = new Intl.DateTimeFormat('vi-VN', {
-        hour: '2-digit',
-        minute: '2-digit',
-      }).format(new Date());
-      setDraftStatus(hasDraft ? `Đã lưu lúc ${time}` : 'Bản nháp tự động lưu');
-    }, 520);
-  }
+      toast('Liên kết bài viết này chưa có nội dung.');
+    }
 
-  function restoreDraft() {
-    const storedDraft = safeStorageGet(DRAFT_KEY);
-    if (!storedDraft) return;
-
-    try {
-      const draft = JSON.parse(storedDraft);
-      elements.title.value = draft.title || '';
-      elements.content.value = draft.content || '';
-      elements.category.value = draft.category || 'Nhật ký';
-
-      if (draft.editingId && state.posts.some((post) => post.id === draft.editingId)) {
-        state.editingId = draft.editingId;
-        elements.composerTitle.textContent = 'Chỉnh sửa bài viết';
-        elements.publishButtonLabel.textContent = 'Lưu thay đổi';
-      }
-
-      updateCounter();
-      setDraftStatus('Đã khôi phục bản nháp');
-    } catch (error) {
-      safeStorageRemove(DRAFT_KEY);
+    if (reader.open) {
+      reader.close();
     }
   }
 
-  function showFormError(message) {
-    elements.formError.textContent = message;
-    elements.formError.hidden = false;
-  }
+  function closeReader() {
+    reader.close();
 
-  function clearFormError() {
-    elements.formError.hidden = true;
-    elements.formError.textContent = '';
-  }
-
-  function clearSelectedVideo() {
-    if (state.draftVideoUrl) URL.revokeObjectURL(state.draftVideoUrl);
-    state.draftVideoUrl = null;
-    state.selectedVideo = null;
-    elements.draftVideo.pause();
-    elements.draftVideo.removeAttribute('src');
-    elements.draftVideo.load();
-    elements.fileInput.value = '';
-    elements.videoName.textContent = '';
-    elements.videoSize.textContent = '';
-    elements.videoPreview.hidden = true;
-    elements.uploadZone.hidden = false;
-  }
-
-  function selectVideo(blob, name = 'video') {
-    if (!(blob instanceof Blob) || !blob.type.startsWith('video/')) {
-      showFormError('Tệp đã chọn không phải là video hợp lệ.');
-      return false;
-    }
-    if (blob.size > MAX_VIDEO_SIZE) {
-      showFormError('Video vượt quá 250 MB. Hãy chọn video nhẹ hơn.');
-      return false;
-    }
-
-    clearSelectedVideo();
-    clearFormError();
-    state.selectedVideo = {
-      blob,
-      name: name || 'video',
-      type: blob.type,
-      size: blob.size,
-    };
-    state.draftVideoUrl = URL.createObjectURL(blob);
-    elements.draftVideo.src = state.draftVideoUrl;
-    elements.videoName.textContent = state.selectedVideo.name;
-    elements.videoSize.textContent = formatFileSize(blob.size);
-    elements.uploadZone.hidden = true;
-    elements.videoPreview.hidden = false;
-    return true;
-  }
-
-  function resetComposer(showConfirmation = false) {
-    window.clearTimeout(state.draftTimer);
-    state.editingId = null;
-    elements.form.reset();
-    elements.category.value = 'Nhật ký';
-    elements.composerTitle.textContent = 'Tạo bài viết mới';
-    elements.publishButtonLabel.textContent = 'Xuất bản bài viết';
-    clearSelectedVideo();
-    clearFormError();
-    safeStorageRemove(DRAFT_KEY);
-    updateCounter();
-    setDraftStatus('Bản nháp tự động lưu');
-    if (showConfirmation) showToast('Đã xóa bản nháp.');
-  }
-
-  function deriveTitle(content, videoName) {
-    const firstLine = String(content || '').split('\n').find((line) => line.trim())?.trim();
-    if (firstLine) return firstLine.length > 76 ? `${firstLine.slice(0, 73)}...` : firstLine;
-    if (videoName) return videoName.replace(/\.[^.]+$/, '') || 'Video mới';
-    return 'Bài viết không tiêu đề';
-  }
-
-  async function publishPost(event) {
-    event.preventDefault();
-    clearFormError();
-
-    const content = elements.content.value.trim();
-    if (!content && !state.selectedVideo) {
-      showFormError('Hãy nhập nội dung hoặc chọn một video trước khi xuất bản.');
-      elements.content.focus();
-      return;
-    }
-
-    const existingPost = state.editingId
-      ? state.posts.find((post) => post.id === state.editingId)
-      : null;
-    const now = Date.now();
-    const post = {
-      id: existingPost?.id || makeId(),
-      title: elements.title.value.trim() || deriveTitle(content, state.selectedVideo?.name),
-      category: elements.category.value || 'Khác',
-      content,
-      video: state.selectedVideo?.blob || null,
-      videoName: state.selectedVideo?.name || null,
-      videoType: state.selectedVideo?.type || null,
-      createdAt: existingPost?.createdAt || now,
-      updatedAt: now,
-    };
-
-    elements.publishButton.disabled = true;
-    elements.publishButtonLabel.textContent = existingPost ? 'Đang lưu...' : 'Đang xuất bản...';
-
-    try {
-      await persistPost(post);
-      sortPosts();
-      const successMessage = existingPost ? 'Đã cập nhật bài viết.' : 'Bài viết đã được xuất bản.';
-      resetComposer(false);
-      renderPosts();
-      showToast(successMessage);
-      document.getElementById('posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } catch (error) {
-      const isQuotaError = error?.name === 'QuotaExceededError';
-      showFormError(
-        isQuotaError
-          ? 'Bộ nhớ trình duyệt không còn đủ cho video này. Hãy chọn video nhẹ hơn hoặc xóa bớt bài cũ.'
-          : 'Chưa thể lưu bài viết. Hãy thử lại một lần nữa.',
+    if (location.hash.startsWith('#bai/')) {
+      history.replaceState(
+        null,
+        '',
+        `${location.pathname}${location.search}#bai-viet`
       );
-      elements.publishButtonLabel.textContent = existingPost ? 'Lưu thay đổi' : 'Xuất bản bài viết';
-    } finally {
-      elements.publishButton.disabled = false;
-    }
-  }
-
-  function beginEdit(post) {
-    state.editingId = post.id;
-    elements.title.value = post.title || '';
-    elements.category.value = post.category || 'Khác';
-    elements.content.value = post.content || '';
-    elements.composerTitle.textContent = 'Chỉnh sửa bài viết';
-    elements.publishButtonLabel.textContent = 'Lưu thay đổi';
-    clearSelectedVideo();
-    if (post.video instanceof Blob) selectVideo(post.video, post.videoName || 'video');
-    clearFormError();
-    updateCounter();
-    saveDraft();
-    document.getElementById('composer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.setTimeout(() => elements.title.focus(), 450);
-  }
-
-  function requestDelete(id) {
-    state.pendingDeleteId = id;
-    if (typeof elements.deleteDialog.showModal === 'function') {
-      elements.deleteDialog.returnValue = '';
-      elements.deleteDialog.showModal();
-      return;
     }
 
-    if (window.confirm('Xóa bài viết này?')) confirmDeletePost();
-    else state.pendingDeleteId = null;
+    document.body.classList.remove('reading');
+    current = null;
   }
 
-  async function confirmDeletePost() {
-    if (!state.pendingDeleteId) return;
-    const id = state.pendingDeleteId;
-    state.pendingDeleteId = null;
+  /* ==================== GIAO DIỆN SÁNG / TỐI ==================== */
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+
+    $('#theme').setAttribute(
+      'aria-label',
+      theme === 'dark'
+        ? 'Bật giao diện sáng'
+        : 'Bật giao diện tối'
+    );
+
+    document.querySelector(
+      'meta[name="theme-color"]'
+    ).content = theme === 'dark'
+      ? '#141718'
+      : '#f1eee5';
+  }
+
+  setTheme(
+    readStorage(THEME_KEY) === 'light'
+      ? 'light'
+      : 'dark'
+  );
+
+  $('#theme').addEventListener('click', () => {
+    const next =
+      document.documentElement.dataset.theme === 'dark'
+        ? 'light'
+        : 'dark';
+
+    setTheme(next);
+    writeStorage(THEME_KEY, next);
+  });
+
+  /* ==================== SỰ KIỆN ==================== */
+
+  $('.filters').addEventListener('click', event => {
+    const button = event.target.closest('[data-filter]');
+
+    if (!button) return;
+
+    filter = button.dataset.filter;
+
+    document.querySelectorAll('[data-filter]').forEach(item => {
+      item.classList.toggle('selected', item === button);
+
+      item.setAttribute(
+        'aria-pressed',
+        String(item === button)
+      );
+    });
+
+    render();
+  });
+
+  search.addEventListener('input', render);
+
+  $('#reset').addEventListener('click', () => {
+    search.value = '';
+    $('[data-filter="all"]').click();
+    search.focus();
+  });
+
+  list.addEventListener('click', event => {
+    const button = event.target.closest('[data-save]');
+
+    if (button) {
+      toggleSave(button.dataset.save);
+    }
+  });
+
+  $('#save-reader').addEventListener('click', () => {
+    if (current) {
+      toggleSave(current.slug);
+    }
+  });
+
+  $('#close-reader').addEventListener(
+    'click',
+    closeReader
+  );
+
+  reader.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeReader();
+  });
+
+  reader.addEventListener('close', () => {
+    document.body.classList.remove('reading');
+    current = null;
+  });
+
+  reader.addEventListener(
+    'scroll',
+    updateProgress,
+    { passive: true }
+  );
+
+  window.addEventListener('resize', updateProgress);
+  window.addEventListener('hashchange', route);
+
+  $('#back-top').addEventListener('click', event => {
+    event.preventDefault();
+
+    const reduceMotion = matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotion ? 'instant' : 'smooth'
+    });
+  });
+
+  $('#share').addEventListener('click', async () => {
+    const url = location.href;
 
     try {
-      await removeStoredPost(id);
-      if (state.editingId === id) resetComposer(false);
-      renderPosts();
-      showToast('Đã xóa bài viết.');
-    } catch (error) {
-      showToast('Chưa thể xóa bài viết. Hãy thử lại.');
+      await navigator.clipboard.writeText(url);
+      toast('Đã sao chép liên kết bài viết.');
+    } catch {
+      window.prompt('Sao chép liên kết bài viết:', url);
     }
-  }
-
-  function handlePostAction(event) {
-    const button = event.target.closest('[data-action]');
-    if (!button) return;
-    const card = button.closest('.post-card');
-    if (!card) return;
-    const post = state.posts.find((item) => item.id === card.dataset.id);
-    if (!post) return;
-
-    if (button.dataset.action === 'expand') {
-      const content = card.querySelector('.post-content');
-      const isExpanded = content.classList.toggle('is-expanded');
-      button.textContent = isExpanded ? 'Thu gọn' : 'Đọc tiếp';
-      button.setAttribute('aria-expanded', String(isExpanded));
-      return;
-    }
-
-    if (button.dataset.action === 'edit') beginEdit(post);
-    if (button.dataset.action === 'delete') requestDelete(post.id);
-  }
-
-  function showToast(message) {
-    window.clearTimeout(state.toastTimer);
-    elements.toastMessage.textContent = message;
-    elements.toast.classList.add('is-visible');
-    state.toastTimer = window.setTimeout(() => {
-      elements.toast.classList.remove('is-visible');
-    }, 3600);
-  }
-
-  function handleDroppedFiles(fileList) {
-    const video = Array.from(fileList || []).find((file) => file.type.startsWith('video/'));
-    if (!video) {
-      showFormError('Hãy thả một tệp video hợp lệ vào đây.');
-      return;
-    }
-    selectVideo(video, video.name);
-  }
-
-  function attachEvents() {
-    elements.themeToggle.addEventListener('click', () => {
-      setTheme(elements.html.dataset.theme === 'dark' ? 'light' : 'dark');
-    });
-
-    elements.form.addEventListener('submit', publishPost);
-    elements.title.addEventListener('input', saveDraft);
-    elements.category.addEventListener('change', saveDraft);
-    elements.content.addEventListener('input', () => {
-      updateCounter();
-      clearFormError();
-      saveDraft();
-    });
-
-    elements.fileInput.addEventListener('change', () => {
-      const file = elements.fileInput.files?.[0];
-      if (file) selectVideo(file, file.name);
-    });
-    elements.removeVideo.addEventListener('click', clearSelectedVideo);
-    elements.clearDraft.addEventListener('click', () => resetComposer(true));
-
-    ['dragenter', 'dragover'].forEach((eventName) => {
-      elements.uploadZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        elements.uploadZone.classList.add('is-dragging');
-      });
-    });
-    ['dragleave', 'drop'].forEach((eventName) => {
-      elements.uploadZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        elements.uploadZone.classList.remove('is-dragging');
-      });
-    });
-    elements.uploadZone.addEventListener('drop', (event) => {
-      handleDroppedFiles(event.dataTransfer?.files);
-    });
-
-    elements.searchInput.addEventListener('input', renderPosts);
-    elements.filterCategory.addEventListener('change', renderPosts);
-    elements.resetFilters.addEventListener('click', () => {
-      elements.searchInput.value = '';
-      elements.filterCategory.value = 'Tất cả';
-      renderPosts();
-      elements.searchInput.focus();
-    });
-    elements.postsContainer.addEventListener('click', handlePostAction);
-
-    elements.deleteDialog.addEventListener('close', () => {
-      if (elements.deleteDialog.returnValue === 'confirm') confirmDeletePost();
-      else state.pendingDeleteId = null;
-    });
-
-    window.addEventListener('beforeunload', () => {
-      if (state.draftVideoUrl) URL.revokeObjectURL(state.draftVideoUrl);
-      revokePostVideoUrls();
-      state.db?.close();
-    });
-  }
-
-  async function initialiseBlog() {
-    initialiseTheme();
-    attachEvents();
-    updateCounter();
-    await initialiseStorage();
-    restoreDraft();
-    renderPosts();
-  }
-
-  initialiseBlog().catch(() => {
-    state.storageMode = 'fallback';
-    state.posts = getFallbackPosts();
-    restoreDraft();
-    renderPosts();
-    showToast('Blog đã mở ở chế độ lưu trữ đơn giản.');
   });
+
+  /* ==================== KHỞI TẠO ==================== */
+
+  render();
+  route();
 })();
