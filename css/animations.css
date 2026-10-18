@@ -1,3 +1,12 @@
+/* Loader luôn nằm trên video trong lúc chuẩn bị. */
+.Loading {
+  z-index: 20000;
+}
+
+/*
+  Màn trắng chuyển cảnh.
+  JavaScript điều khiển hiệu ứng và chờ hiệu ứng chạy xong.
+*/
 .fade-out-screen {
   display: none;
   position: fixed;
@@ -6,20 +15,13 @@
   width: 100%;
   height: 100%;
   background-color: white;
-  /* Animation: fade out sur 3 secondes */
-  animation: fadeOut 3s forwards;
+  opacity: 1;
+  animation: none;
+  pointer-events: none;
   z-index: 999999;
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
+/* Video intro */
 .Loading-video {
   position: fixed;
   top: 0;
@@ -27,9 +29,11 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+  background-color: #000;
   z-index: 10000;
 }
 
+/* Nền và vùng chứa lá rơi */
 .falling-leaves {
   display: none;
   position: absolute;
@@ -38,12 +42,16 @@
   left: 50%;
   width: 100%;
   transform: translate(-50%, 0);
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/sidebar-bg.png)
+
+  background:
+    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/sidebar-bg.png)
     no-repeat center center;
+
   background-size: cover;
   overflow: hidden;
   z-index: -1;
 }
+
 .leaf-scene {
   position: absolute;
   top: 0;
@@ -52,6 +60,7 @@
   width: 100%;
   transform-style: preserve-3d;
 }
+
 .leaf-scene div {
   position: absolute;
   top: 0;
@@ -59,8 +68,11 @@
   width: 20px;
   height: 20px;
   color: green;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/leaf.svg)
+
+  background:
+    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/leaf.svg)
     no-repeat;
+
   background-size: 100%;
   transform-style: preserve-3d;
   backface-visibility: visible;
@@ -71,6 +83,7 @@
   100% {
     transform: translateX(0);
   }
+
   10%,
   30%,
   50%,
@@ -78,6 +91,7 @@
   90% {
     transform: translateX(-2px);
   }
+
   20%,
   40%,
   60%,
